@@ -1,5 +1,6 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
          colorButton.setBackgroundColor(Color.WHITE);
 
          colorButton.setOnClickListener(new View.OnClickListener() {
+
              @Override
              public void onClick(View v) {
                  ColorDrawable buttonColor = (ColorDrawable) colorButton.getBackground();
@@ -31,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
              }
          });
+
     }
 
-    public void changeColor(){
-
+    public void goToMenu(View view) {
+        Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }
