@@ -16,28 +16,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         colorButton = findViewById(R.id.button);
-         colorButton.setBackgroundColor(Color.WHITE);
-
-         colorButton.setOnClickListener(new View.OnClickListener() {
-
-             @Override
-             public void onClick(View v) {
-                 ColorDrawable buttonColor = (ColorDrawable) colorButton.getBackground();
-
-                 if(buttonColor.getColor() == Color.BLUE){
-                     colorButton.setBackgroundColor(Color.WHITE);
-                 } else {
-                     colorButton.setBackgroundColor(Color.BLUE);
-                 }
-
-             }
-         });
-
     }
 
     public void goToMenu(View view) {
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
         startActivity(intent);
+    }
+
+    public void changeColor(View view) {
+        colorButton = findViewById(R.id.button);
+        ColorDrawable buttonColor = (ColorDrawable) colorButton.getBackground();
+
+        if(buttonColor.getColor() == Color.BLUE){
+            colorButton.setBackgroundColor(Color.WHITE);
+        } else {
+            colorButton.setBackgroundColor(Color.BLUE);
+        }
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@android:color/holo_red_dark">
 
     <Button
         android:id="@+id/button"
@@ -12,8 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:text="Button"
+        android:onClick="changeColor"
         app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2" />
+        app:layout_constraintStart_toStartOf="@+id/button2"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/button2"
@@ -25,7 +29,9 @@
         android:onClick="goToMenu"
         android:text="Next activity"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black" />
 
 
 </android.support.constraint.ConstraintLayout>
