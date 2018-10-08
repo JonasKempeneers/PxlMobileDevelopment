@@ -23,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void navigateToMap(View view){
+        Intent intent = new Intent (MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
+
     public void changeColor(View view) {
         colorButton = findViewById(R.id.button);
         ColorDrawable buttonColor = (ColorDrawable) colorButton.getBackground();

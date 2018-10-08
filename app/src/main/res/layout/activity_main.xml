@@ -33,5 +33,14 @@
         android:background="@android:color/white"
         android:textColor="@android:color/black" />
 
+    <Button
+        android:id="@+id/navigateToMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
+        android:onClick="navigateToMap"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="378dp" />
+
 
 </android.support.constraint.ConstraintLayout>
