@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@android:color/holo_red_dark">
+    android:background="@android:color/darker_gray"
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
-        android:text="Button"
-        android:onClick="changeColor"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
         android:background="@android:color/white"
-        android:textColor="@android:color/black" />
+        android:onClick="changeColor"
+        android:text="Button"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toStartOf="@+id/button2" />
 
     <Button
         android:id="@+id/button2"
@@ -26,21 +26,22 @@
         android:layout_marginEnd="110dp"
         android:layout_marginRight="110dp"
         android:layout_marginBottom="244dp"
+        android:background="@android:color/white"
         android:onClick="goToMenu"
         android:text="Next activity"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/navigateToMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Map"
+        android:layout_marginTop="52dp"
         android:onClick="navigateToMap"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="378dp" />
+        android:text="Map"
+        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+        android:id="@+id/nav_geplaatsteBoeken"
+        android:icon="@drawable/ic_fiber_manual_record_black_24dp"
+        android:title="Geplaatste boeken" />
+
+        <item
+            android:id="@+id/nav_gevondenBoeken"
+            android:icon="@drawable/ic_fiber_manual_record_black_24dp"
+            android:title="Gevonden boeken" />
+
+        <item
+            android:id="@+id/nav_maakQR"
+            android:icon="@drawable/ic_fiber_manual_record_black_24dp"
+            android:title="Maak QR" />
+    </group>
+</menu>
