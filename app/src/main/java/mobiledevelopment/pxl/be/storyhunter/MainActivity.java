@@ -7,15 +7,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import mobiledevelopment.pxl.be.storyhunter.repositories.BookRepository;
 
 public class MainActivity extends AppCompatActivity {
 
     public Button colorButton;
+    public TextView testTextView;
+    private BookRepository bookRepository = new BookRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        testTextView = findViewById(R.id.testTextView);
+        try{
+            testTextView.setText(bookRepository.getAllBooks().getString(1));
+        } catch (Exception e){
+
+        }
+
     }
 
     public void goToMenu(View view) {
