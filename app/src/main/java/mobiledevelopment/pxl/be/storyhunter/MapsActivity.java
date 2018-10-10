@@ -1,5 +1,6 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -57,6 +58,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -64,6 +66,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+    }
+
+    public void navigateToBookList(){
+        Intent intent = new Intent(MapsActivity.this, BookListActivity.class);
     }
 
     @Override

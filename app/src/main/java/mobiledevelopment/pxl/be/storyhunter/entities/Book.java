@@ -4,10 +4,19 @@ import org.json.JSONArray;
 
 public class Book {
 
+    private int id;
     private String title;
     private String author;
     private String language;
     private String isbn;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

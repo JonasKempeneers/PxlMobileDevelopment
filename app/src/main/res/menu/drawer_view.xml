@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_gevondenBoeken"
             android:icon="@drawable/ic_fiber_manual_record_black_24dp"
-            android:title="Gevonden boeken" />
+            android:title="Gevonden boeken"/>
 
         <item
             android:id="@+id/nav_maakQR"
