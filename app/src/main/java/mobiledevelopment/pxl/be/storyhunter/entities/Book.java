@@ -49,8 +49,4 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-
-    public static Book parseFromJson(JSONArray bookArray){
-        return null;
-    }
 }

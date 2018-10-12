@@ -2,10 +2,15 @@ package mobiledevelopment.pxl.be.storyhunter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import mobiledevelopment.pxl.be.storyhunter.adapters.BookListAdapter;
 import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
 import mobiledevelopment.pxl.be.storyhunter.entities.Book;
 import retrofit2.Call;
@@ -15,15 +20,24 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookListActivity extends AppCompatActivity {
-
-    public TextView booksTextview;
+    private List<Book> bookList = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private BookListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
 
-        booksTextview = findViewById(R.id.booksTextView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        mAdapter = new BookListAdapter(bookList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+
+        //booksTextview = findViewById(R.id.booksTextView);
 
         GetAllFoundBooks();
     }
@@ -42,26 +56,17 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                 if(!response.isSuccessful()){
-
-                    booksTextview.setText("Code: " + response.code());
                     return;
                 }
 
-                List<Book> bookList = response.body();
+                bookList = response.body();
 
-                for (Book book : bookList){
-                    String content = "";
-                    content += "Id: " + book.getId() + "\n";
-                    content += "Author " + book.getAuthor() + "\n";
-                    content += "Title " + book.getTitle() + "\n";
-
-                    booksTextview.append(content);
-                }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<List<Book>> call, Throwable t) {
-                booksTextview.setText(t.getMessage());
+                //booksTextview.setText(t.getMessage());
             }
         });
     }
