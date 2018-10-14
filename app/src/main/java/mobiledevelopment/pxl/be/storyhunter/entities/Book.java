@@ -1,14 +1,30 @@
 package mobiledevelopment.pxl.be.storyhunter.entities;
 
-import org.json.JSONArray;
+import com.google.gson.annotations.SerializedName;
+
 
 public class Book {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("title")
     private String title;
+    @SerializedName("author")
     private String author;
+    @SerializedName("language")
     private String language;
+    @SerializedName("isbn")
     private String isbn;
+
+    public Book(){}
+
+    public Book(int id, String title, String author, String language, String isbn) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.language = language;
+        this.isbn = isbn;
+    }
 
     public int getId() {
         return id;

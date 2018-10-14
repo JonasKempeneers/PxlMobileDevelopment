@@ -13,6 +13,7 @@ import java.util.List;
 
 import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
 import mobiledevelopment.pxl.be.storyhunter.entities.Book;
+import mobiledevelopment.pxl.be.storyhunter.entities.BookList;
 import mobiledevelopment.pxl.be.storyhunter.repositories.BookRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         testTextView = findViewById(R.id.testTextView);
 
-        GetAllBooks();
     }
 
     public void goToMenu(View view) {
@@ -54,43 +54,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             colorButton.setBackgroundColor(Color.BLUE);
         }
-    }
-
-    private void GetAllBooks(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://my-json-server.typicode.com/JonasKempeneers/FakeApi/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        BooksApi booksApi = retrofit.create(BooksApi.class);
-
-        Call<List<Book>> call = booksApi.getBooks();
-
-        call.enqueue(new Callback<List<Book>>() {
-            @Override
-            public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                if(!response.isSuccessful()){
-
-                    testTextView.setText("Code: " + response.code());
-                    return;
-                }
-
-                List<Book> bookList = response.body();
-
-                for (Book book : bookList){
-                    String content = "";
-                    content += "Id: " + book.getId() + "\n";
-                    content += "Author " + book.getAuthor() + "\n";
-                    content += "Title " + book.getTitle() + "\n";
-
-                    testTextView.append(content);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Book>> call, Throwable t) {
-                testTextView.setText(t.getMessage());
-            }
-        });
     }
 }
