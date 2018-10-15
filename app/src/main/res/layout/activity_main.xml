@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:background="@android:color/white"
-        android:onClick="changeColor"
-        android:text="Button"
+        android:onClick="navigateToQRGenerator"
+        android:text="QR generator"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="@+id/button2" />
@@ -28,7 +28,7 @@
         android:layout_marginBottom="244dp"
         android:background="@android:color/white"
         android:onClick="goToMenu"
-        android:text="Next activity"
+        android:text="BookList"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -43,19 +43,14 @@
         app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/testTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="192dp"
-            tools:layout_editor_absoluteY="57dp" />
-
-    </android.support.v4.widget.NestedScrollView>
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR scanner"
+        android:onClick="navigateToQRScanner"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="323dp" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -7,22 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import mobiledevelopment.pxl.be.storyhunter.repositories.BookRepository;
 
 public class MainActivity extends AppCompatActivity {
 
     public Button colorButton;
-    public TextView testTextView;
-    private BookRepository bookRepository = new BookRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testTextView = findViewById(R.id.testTextView);
-
     }
 
     public void goToMenu(View view) {
@@ -32,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void navigateToMap(View view){
         Intent intent = new Intent (MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToQRScanner(View view){
+        Intent intent = new Intent(MainActivity.this, QRCodeCaptureActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToQRGenerator(View view){
+        Intent intent = new Intent(this, QRCodeCreateActivity.class);
         startActivity(intent);
     }
 
