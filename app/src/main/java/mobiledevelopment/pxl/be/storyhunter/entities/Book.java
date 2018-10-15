@@ -15,6 +15,8 @@ public class Book {
     private String language;
     @SerializedName("isbn")
     private String isbn;
+    @SerializedName("dateFound")
+    private String dateFound;
 
     public Book(){}
 
@@ -64,5 +66,13 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getDateFound() {
+        return dateFound;
+    }
+
+    public void setDateFound(String dateFound) {
+        this.dateFound = dateFound;
     }
 }

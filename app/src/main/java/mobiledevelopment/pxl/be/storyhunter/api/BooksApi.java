@@ -2,15 +2,15 @@ package mobiledevelopment.pxl.be.storyhunter.api;
 
 import java.util.List;
 
-import mobiledevelopment.pxl.be.storyhunter.entities.BookList;
+import mobiledevelopment.pxl.be.storyhunter.entities.Book;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface BooksApi {
 
     @GET("bookList")
-    public Call<BookList> getBooks();
+    public Call<List<Book>> getBooks();
 
     @GET("foundBooks")
-    public Call<BookList> getFoundBooks();
+    public Call<List<Book>> getFoundBooks();
 }

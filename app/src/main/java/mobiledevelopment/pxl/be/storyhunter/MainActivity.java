@@ -9,17 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-
-import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
-import mobiledevelopment.pxl.be.storyhunter.entities.Book;
-import mobiledevelopment.pxl.be.storyhunter.entities.BookList;
 import mobiledevelopment.pxl.be.storyhunter.repositories.BookRepository;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
