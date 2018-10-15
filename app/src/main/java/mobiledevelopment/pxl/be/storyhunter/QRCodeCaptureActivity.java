@@ -1,16 +1,27 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
+import mobiledevelopment.pxl.be.storyhunter.api.RetroFitInstance;
+import mobiledevelopment.pxl.be.storyhunter.entities.Book;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QRCodeCaptureActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -62,7 +73,38 @@ public class QRCodeCaptureActivity extends AppCompatActivity implements ZXingSca
         //TODO: Get data from qr
         //TODO: Post to database (foundbooks)
         //TODO: Return to mapactivity, camera will freeze on read
+        String separator = ":";
+        String[] bookData = result.getText().split(separator);
 
+        Book bookToPost = new Book(bookData[0], bookData[1], bookData[2], bookData[3]);
+
+        postBook(bookToPost);
+    }
+
+    private void postBook(Book book){
+        BooksApi service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
+
+        /*Call the method with parameter in the interface to get the book data*/
+        Call<Book> call = service.postBook(book);
+
+        /*Log the URL called*/
+        Log.wtf("URL Called", call.request().url() + "");
+
+        call.enqueue(new Callback<Book>() {
+            @Override
+            public void onResponse(Call<Book> call, Response<Book> response) {
+                Toast.makeText(QRCodeCaptureActivity.this, "Book successfully added to database", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Book> call, Throwable t) {
+                Toast.makeText(QRCodeCaptureActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+        
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
 

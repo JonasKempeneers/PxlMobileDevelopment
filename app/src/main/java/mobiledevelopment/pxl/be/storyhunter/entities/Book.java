@@ -20,6 +20,13 @@ public class Book {
 
     public Book(){}
 
+    public Book(String title, String author, String language, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.language = language;
+        this.isbn = isbn;
+    }
+
     public Book(int id, String title, String author, String language, String isbn) {
         this.id = id;
         this.title = title;
