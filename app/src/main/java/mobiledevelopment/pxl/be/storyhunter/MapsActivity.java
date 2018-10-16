@@ -75,11 +75,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
+
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
+
+                        switch (menuItem.getTitle().toString()){
+                            case "Placed books":
+                                Intent placedBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
+                                placedBooksIntent.putExtra("placedBooks", true);
+                                startActivity(placedBooksIntent);
+                                break;
+                            case "Found books":
+                                Intent foundBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
+                                foundBooksIntent.putExtra("placedBooks", false);
+                                startActivity(foundBooksIntent);
+                                break;
+                            case "Generate QR":
+                                Intent generateQRIntent = new Intent(MapsActivity.this, QRCodeCreateActivity.class);
+                                startActivity(generateQRIntent);
+                                break;
+                                default: break;
+                        }
 
                         return true;
                     }

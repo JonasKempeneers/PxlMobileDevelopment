@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 public interface BooksApi {
 
     @GET("bookList")
-    public Call<List<Book>> getBooks();
+    public Call<List<Book>> getPlacedBooks();
 
     @GET("foundBooks")
     public Call<List<Book>> getFoundBooks();

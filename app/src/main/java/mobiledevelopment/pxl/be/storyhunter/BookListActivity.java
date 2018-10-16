@@ -1,6 +1,7 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,16 +29,48 @@ import retrofit2.Response;
 public class BookListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private BookListAdapter mAdapter;
+    private BooksApi service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
 
-        BooksApi service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
+        service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
         /*Call the method with parameter in the interface to get the book data*/
-        Call<List<Book>> call = service.getBooks();
+
+        Intent previousIntent = getIntent();
+        if(previousIntent.getBooleanExtra("placedBooks", true)){
+            getPlacedBooks();
+        } else {
+            getFoundBooks();
+        }
+
+    }
+
+    private void getFoundBooks() {
+        Call<List<Book>> call = service.getFoundBooks();
+
+        /*Log the URL called*/
+        Log.wtf("URL Called", call.request().url() + "");
+
+        call.enqueue(new Callback<List<Book>>() {
+            @Override
+            public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                generateBookList((ArrayList<Book>)response.body()) ;
+            }
+
+            @Override
+            public void onFailure(Call<List<Book>> call, Throwable t) {
+                Toast.makeText(BookListActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+    }
+
+    private void getPlacedBooks(){
+        Call<List<Book>> call = service.getPlacedBooks();
 
         /*Log the URL called*/
         Log.wtf("URL Called", call.request().url() + "");
