@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -65,6 +67,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
+
 
     }
 
@@ -180,4 +200,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
+
+
 }
