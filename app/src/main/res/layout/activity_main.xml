@@ -1,56 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:layout_marginBottom="40dp"
+        android:theme="@style/WhiteActionBarText"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <!-- Email input -->
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:background="@android:color/white"
-        android:onClick="navigateToQRGenerator"
-        android:text="QR generator"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="Email"/>
+
+    <!-- Password input -->
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:inputType="textPassword"
+        android:hint="Password"/>
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="110dp"
-        android:layout_marginRight="110dp"
-        android:layout_marginBottom="244dp"
-        android:background="@android:color/white"
-        android:onClick="goToMenu"
-        android:text="BookList"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/navigateToMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Log in"
         android:onClick="navigateToMap"
-        android:text="Map"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        android:textColor="@color/colorWhite"/>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+    <!-- Divider line -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="QR scanner"
-        android:onClick="navigateToQRScanner"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="323dp" />
+        android:layout_centerVertical="true"
+        android:layout_marginTop="40dp">
 
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="OR"
+            android:textColor="@color/colorDarkGrey"/>
 
-</android.support.constraint.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@id/tvText"
+            android:background="@color/colorDarkGrey"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toRightOf="@id/tvText"
+            android:background="@color/colorDarkGrey"
+            />
+
+    </RelativeLayout>
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:onClick="navigateToMap"
+        app:colorScheme="dark" />
+
+</LinearLayout>
