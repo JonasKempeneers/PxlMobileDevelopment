@@ -3,6 +3,7 @@ package mobiledevelopment.pxl.be.storyhunter;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ public class QRCodeCreateActivity extends AppCompatActivity {
     private EditText author;
     private EditText language;
     private EditText isbn;
+    private Toolbar toolbar;
 
     private Toast mToast;
 
@@ -29,6 +31,8 @@ public class QRCodeCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_create);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         title = findViewById(R.id.titleInput);
         author = findViewById(R.id.authorInput);

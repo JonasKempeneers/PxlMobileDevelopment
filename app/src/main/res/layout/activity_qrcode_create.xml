@@ -8,6 +8,16 @@
     android:gravity="center_horizontal"
     tools:context=".QRCodeCreateActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:layout_marginBottom="20dp"
+        android:theme="@style/WhiteActionBarText"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -25,6 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
@@ -32,6 +45,8 @@
         android:id="@+id/titleInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
@@ -41,6 +56,9 @@
         android:id="@+id/authorHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Author"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
@@ -49,6 +67,8 @@
         android:id="@+id/authorInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
@@ -58,6 +78,9 @@
         android:id="@+id/languageHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Language"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
@@ -66,6 +89,8 @@
         android:id="@+id/languageInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
@@ -75,6 +100,9 @@
         android:id="@+id/isbnHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Isbn"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
@@ -83,13 +111,20 @@
         android:id="@+id/isbnInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/colorPrimaryDark"
         android:text="Generate QR code"
+        android:textColor="@color/colorWhite"
         android:onClick="generateQRCode"/>
 
     <ImageView

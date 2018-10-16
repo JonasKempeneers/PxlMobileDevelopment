@@ -18,84 +18,98 @@
         android:theme="@style/WhiteActionBarText"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <!-- Email input -->
 
-    <EditText
-        android:id="@+id/emailInput"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Email"/>
+        android:layout_height="match_parent">
 
-    <!-- Password input -->
-
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:inputType="textPassword"
-        android:hint="Password"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Log in"
-        android:onClick="navigateToMap"
-        android:textColor="@color/colorWhite"/>
-
-    <!-- Divider line -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="40dp">
-
-        <TextView
-            android:id="@+id/tvText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="OR"
-            android:textColor="@color/colorDarkGrey"/>
+            android:orientation="vertical" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_toLeftOf="@id/tvText"
-            android:background="@color/colorDarkGrey"
-            />
+            <!-- Email input -->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:layout_toRightOf="@id/tvText"
-            android:background="@color/colorDarkGrey"
-            />
+            <EditText
+                android:id="@+id/emailInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="Email"/>
 
-    </RelativeLayout>
+            <!-- Password input -->
 
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:onClick="navigateToMap"
-        app:colorScheme="dark" />
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:inputType="textPassword"
+                android:hint="Password"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Log in"
+                android:onClick="navigateToMap"
+                android:textColor="@color/colorWhite"/>
+
+            <!-- Divider line -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="40dp">
+
+                <TextView
+                    android:id="@+id/tvText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="OR"
+                    android:textColor="@color/colorDarkGrey"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@id/tvText"
+                    android:background="@color/colorDarkGrey"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/tvText"
+                    android:background="@color/colorDarkGrey"
+                    />
+
+            </RelativeLayout>
+
+            <com.google.android.gms.common.SignInButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="navigateToMap"
+                app:colorScheme="dark" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

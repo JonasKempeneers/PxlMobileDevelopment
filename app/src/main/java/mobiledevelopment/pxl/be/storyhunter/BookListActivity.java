@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +31,14 @@ public class BookListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private BookListAdapter mAdapter;
     private BooksApi service;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
