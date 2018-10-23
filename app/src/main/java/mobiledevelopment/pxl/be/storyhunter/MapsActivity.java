@@ -297,4 +297,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    public void navigateToQRGenerator(View view) {
+        Intent placeBookIntent = new Intent(MapsActivity.this, QRCodeCreateActivity.class);
+        placeBookIntent.putExtra("placedBooks", true);
+        startActivity(placeBookIntent);
+    }
+
+    public void navigateToQRScanner(View view) {
+        Intent createBookIntent = new Intent(MapsActivity.this, QRCodeCaptureActivity.class);
+        createBookIntent.putExtra("placedBooks", true);
+        startActivity(createBookIntent);
+    }
 }
