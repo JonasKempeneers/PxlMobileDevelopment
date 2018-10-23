@@ -17,6 +17,10 @@ public class Book {
     private String isbn;
     @SerializedName("dateFound")
     private String dateFound;
+    @SerializedName("latitude")
+    private double latitude;
+    @SerializedName("longitude")
+    private double longitude;
 
     public Book(){}
 
@@ -81,5 +85,21 @@ public class Book {
 
     public void setDateFound(String dateFound) {
         this.dateFound = dateFound;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

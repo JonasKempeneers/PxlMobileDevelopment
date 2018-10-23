@@ -16,6 +16,9 @@ public interface BooksApi {
     @GET("foundBooks")
     public Call<List<Book>> getFoundBooks();
 
+    @GET("booksInLocationRadius")
+    public Call<List<Book>> getBooksInLocationRadius();
+
     @POST("foundBooks")
     public Call<Book> postBook(@Body Book book);
 }

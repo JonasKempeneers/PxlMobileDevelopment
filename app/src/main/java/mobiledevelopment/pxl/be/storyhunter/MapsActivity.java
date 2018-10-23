@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,6 +34,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
+import mobiledevelopment.pxl.be.storyhunter.entities.Book;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 //    FragmentActivity
@@ -55,6 +65,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     View fabBGLayout;
     boolean isFABOpen=false;
 
+    private BooksApi service;
+    private ArrayList<Book> bookList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +87,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        //Fabbutton
+        fabLayout1= (LinearLayout) findViewById(R.id.fabLayout1);
+        fabLayout2= (LinearLayout) findViewById(R.id.fabLayout2);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        fab2= (FloatingActionButton) findViewById(R.id.fab2);
+        fabBGLayout=findViewById(R.id.fabBGLayout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -110,13 +131,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         return true;
                     }
                 });
-
-        fabLayout1= (LinearLayout) findViewById(R.id.fabLayout1);
-        fabLayout2= (LinearLayout) findViewById(R.id.fabLayout2);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2= (FloatingActionButton) findViewById(R.id.fab2);
-        fabBGLayout=findViewById(R.id.fabBGLayout);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,6 +238,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        //placeMarkersOnMap();
     }
 
     private void getLocationPermission() {
@@ -277,14 +293,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
+            public void onAnimationCancel(Animator animator) {}
 
             @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
+            public void onAnimationRepeat(Animator animator) {}
         });
     }
 
@@ -307,5 +319,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent createBookIntent = new Intent(MapsActivity.this, QRCodeCaptureActivity.class);
         createBookIntent.putExtra("placedBooks", true);
         startActivity(createBookIntent);
+    }
+
+    private void placeMarkersOnMap(){
+
+        for (Book book: bookList) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(book.getLatitude(), book.getLongitude()))
+                    .title(book.getTitle()));
+        }
+    }
+
+    private void getBooksInLocationRadius(){
+            ArrayList<Book> bookList;
+            Call<List<Book>> call = service.getFoundBooks();
+
+            /*Log the URL called*/
+            Log.wtf("URL Called", call.request().url() + "");
+
+            call.enqueue(new Callback<List<Book>>() {
+                @Override
+                public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                    generatebookList((ArrayList<Book>)response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<Book>> call, Throwable t) {
+                    Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
+                }
+            });
+    }
+
+    private ArrayList<Book> generatebookList(ArrayList<Book> bookList){
+        this.bookList = bookList;
+
+        for (Book book: bookList) {
+            Log.e("Warning", "" + book.getLatitude());
+        }
+
+        return bookList;
     }
 }
