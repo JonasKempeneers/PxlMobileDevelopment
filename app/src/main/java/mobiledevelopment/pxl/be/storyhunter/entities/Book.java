@@ -21,6 +21,8 @@ public class Book {
     private double latitude;
     @SerializedName("longitude")
     private double longitude;
+    @SerializedName("hint")
+    private String hint;
 
     public Book(){}
 
@@ -101,5 +103,13 @@ public class Book {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 }

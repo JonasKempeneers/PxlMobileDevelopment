@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
+import mobiledevelopment.pxl.be.storyhunter.api.RetroFitInstance;
 import mobiledevelopment.pxl.be.storyhunter.entities.Book;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,6 +96,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2= (FloatingActionButton) findViewById(R.id.fab2);
         fabBGLayout=findViewById(R.id.fabBGLayout);
+
+        //Instantiate API
+        service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -191,7 +195,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 locationResult.addOnCompleteListener(this, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && mLastKnownLocation != null) {
                             // Set the map's camera position to the current location of the device.
                             Log.d(TAG, "Setting camera success");
                             mLastKnownLocation = (Location) task.getResult();
@@ -239,7 +243,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        //placeMarkersOnMap();
+        getBooksInLocationRadius();
     }
 
     private void getLocationPermission() {
@@ -321,18 +325,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(createBookIntent);
     }
 
-    private void placeMarkersOnMap(){
+    private void placeMarkersOnMap(ArrayList<Book> bookList){
+
+        if (bookList == null){
+            Log.e("Error", "No data in bookList");
+            Toast.makeText(MapsActivity.this, "Could not retrieve data, please check your internet connection and try again", Toast.LENGTH_LONG);
+            return;
+        }
 
         for (Book book: bookList) {
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(book.getLatitude(), book.getLongitude()))
-                    .title(book.getTitle()));
+                    .title(book.getTitle()))
+            .setSnippet(book.getAuthor() + "\n" + book.getHint());
+            Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle() );
         }
     }
 
     private void getBooksInLocationRadius(){
-            ArrayList<Book> bookList;
-            Call<List<Book>> call = service.getFoundBooks();
+            Call<List<Book>> call = service.getBooksInLocationRadius();
 
             /*Log the URL called*/
             Log.wtf("URL Called", call.request().url() + "");
@@ -340,24 +351,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             call.enqueue(new Callback<List<Book>>() {
                 @Override
                 public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                    generatebookList((ArrayList<Book>)response.body());
+                    placeMarkersOnMap((ArrayList<Book>)response.body());
                 }
 
                 @Override
                 public void onFailure(Call<List<Book>> call, Throwable t) {
-                    Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                    Log.e("Error", t.getMessage());
+                    if(t.getMessage().equals("timeout")){
+                        Toast.makeText(MapsActivity.this, "Connection timed out...Please try later!", Toast.LENGTH_SHORT).show();
+                        Log.e("Error", "Error" + t.getMessage());
+                    }
+                    else {
+                        Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                        Log.e("Error", t.getMessage());
+                    }
+
+
                 }
             });
-    }
-
-    private ArrayList<Book> generatebookList(ArrayList<Book> bookList){
-        this.bookList = bookList;
-
-        for (Book book: bookList) {
-            Log.e("Warning", "" + book.getLatitude());
-        }
-
-        return bookList;
     }
 }
