@@ -336,8 +336,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (Book book: bookList) {
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(book.getLatitude(), book.getLongitude()))
-                    .title(book.getTitle()))
-            .setSnippet(book.getAuthor() + "\n" + book.getHint());
+                    .title(book.getTitle() + " - " + book.getAuthor()));
             Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle() );
         }
     }

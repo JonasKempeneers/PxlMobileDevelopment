@@ -24,6 +24,48 @@ public class Book {
     @SerializedName("hint")
     private String hint;
 
+    //Sqlite values
+    public static final String FOUNDBOOKS_TABLE_NAME = "foundBooks";
+    public static final String PLACEDBOOKS_TABLE_NAME = "placedBooks";
+
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_AUTHOR = "author";
+    public static final String COLUMN_LANGUAGE = "language";
+    public static final String COLUMN_ISBN = "isbn";;
+    public static final String COLUMN_DATEFOUND = "dateFound";
+    public static final String COLUMN_LATITUDE = "latitude";
+    public static final String COLUMN_LONGITUDE = "longitude";
+    public static final String COLUMN_HINT = "hint";
+    public static final String COLUMN_TIMESTAMP = "timestamp";
+
+    public static final String CREATE_FOUNDBOOKS_TABLE =
+            "CREATE TABLE " + FOUNDBOOKS_TABLE_NAME + "("
+                    + "id" + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN_TITLE + " TEXT,"
+                    + COLUMN_AUTHOR + " TEXT,"
+                    + COLUMN_LANGUAGE + " TEXT,"
+                    + COLUMN_ISBN + " TEXT,"
+                    + COLUMN_DATEFOUND + " TEXT,"
+                    + COLUMN_LATITUDE + " DOUBLE,"
+                    + COLUMN_LONGITUDE + " DOUBLE,"
+                    + COLUMN_HINT + " TEXT,"
+                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + ")";
+
+    public static final String CREATE_PLACEDBOOKS_TABLE =
+            "CREATE TABLE " + PLACEDBOOKS_TABLE_NAME + "("
+                    + "id" + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN_TITLE + " TEXT,"
+                    + COLUMN_AUTHOR + " TEXT,"
+                    + COLUMN_LANGUAGE + " TEXT,"
+                    + COLUMN_ISBN + " TEXT,"
+                    + COLUMN_DATEFOUND + " TEXT,"
+                    + COLUMN_LATITUDE + " DOUBLE,"
+                    + COLUMN_LONGITUDE + " DOUBLE,"
+                    + COLUMN_HINT + " TEXT,"
+                    + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + ")";
+
     public Book(){}
 
     public Book(String title, String author, String language, String isbn) {
@@ -111,5 +153,15 @@ public class Book {
 
     public void setHint(String hint) {
         this.hint = hint;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
     }
 }

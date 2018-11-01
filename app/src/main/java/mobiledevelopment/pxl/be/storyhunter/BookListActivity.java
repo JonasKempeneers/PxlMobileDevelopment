@@ -1,20 +1,14 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +17,7 @@ import mobiledevelopment.pxl.be.storyhunter.adapters.BookListAdapter;
 import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
 import mobiledevelopment.pxl.be.storyhunter.api.RetroFitInstance;
 import mobiledevelopment.pxl.be.storyhunter.entities.Book;
+import mobiledevelopment.pxl.be.storyhunter.helpers.DbHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +27,8 @@ public class BookListActivity extends AppCompatActivity {
     private BookListAdapter mAdapter;
     private BooksApi service;
     private Toolbar toolbar;
+    private DbHelper db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +37,10 @@ public class BookListActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Get the retrofit instance of the book class
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
-        /*Call the method with parameter in the interface to get the book data*/
+        db = new DbHelper(this);
 
         Intent previousIntent = getIntent();
         if(previousIntent.getBooleanExtra("placedBooks", true)){
@@ -62,13 +60,26 @@ public class BookListActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Book>>() {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                generateBookList((ArrayList<Book>)response.body()) ;
+                ArrayList<Book> bookList = (ArrayList<Book>)response.body();
+
+                generateBookList(bookList);
+
+                for (Book book: bookList){
+                    db.addBookToTable(Book.FOUNDBOOKS_TABLE_NAME, book);
+                    Log.i("INFO", book.toString() + " added to foundBooks table");
+                }
             }
 
             @Override
             public void onFailure(Call<List<Book>> call, Throwable t) {
                 Toast.makeText(BookListActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.e("Error", t.getMessage());
+
+                ArrayList<Book> bookList = db.getBookList(Book.FOUNDBOOKS_TABLE_NAME);
+
+                if(bookList != null){
+                    generateBookList(bookList);
+                }
             }
         });
     }
@@ -82,13 +93,28 @@ public class BookListActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Book>>() {
             @Override
             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                generateBookList((ArrayList<Book>)response.body()) ;
+                ArrayList<Book> bookList = (ArrayList<Book>)response.body();
+
+                generateBookList(bookList);
+
+                for (Book book: bookList){
+                    db.addBookToTable(Book.PLACEDBOOKS_TABLE_NAME, book);
+                    Log.i("INFO", book.toString() + " added to placedBooks table");
+                }
             }
 
             @Override
             public void onFailure(Call<List<Book>> call, Throwable t) {
                 Toast.makeText(BookListActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                 Log.e("Error", t.getMessage());
+
+                ArrayList<Book> bookList = db.getBookList(Book.PLACEDBOOKS_TABLE_NAME);
+
+                if(bookList != null){
+                    generateBookList(bookList);
+                } else {
+                    Log.w("WARN", "Booklist is empty");
+                }
             }
         });
     }
