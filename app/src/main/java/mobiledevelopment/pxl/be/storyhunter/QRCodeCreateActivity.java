@@ -1,10 +1,18 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +23,9 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class QRCodeCreateActivity extends AppCompatActivity {
 
@@ -40,6 +51,8 @@ public class QRCodeCreateActivity extends AppCompatActivity {
         isbn = findViewById(R.id.isbnInput);
 
         qrImageView = findViewById(R.id.qrImageView);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     public void generateQRCode(View view) throws WriterException {
@@ -63,5 +76,42 @@ public class QRCodeCreateActivity extends AppCompatActivity {
         Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
 
         qrImageView.setImageBitmap(bitmap);
+
+        View b = findViewById(R.id.shareQr);
+        b.setVisibility(View.VISIBLE);
+    }
+
+    public void shareQRCode(View view) {
+        Bitmap bitmap =getBitmapFromView(qrImageView);
+        try {
+            File file = new File(this.getExternalCacheDir(),"logicchip.png");
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            intent.setType("image/png");
+            startActivity(Intent.createChooser(intent, "Share image via"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null) {
+            //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        }   else{
+            //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
     }
 }

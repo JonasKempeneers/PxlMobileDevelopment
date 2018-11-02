@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -51,11 +52,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final LatLng mDefaultLocation = new LatLng(50.953753, 5.352708);
 
-    private boolean mLocationPermissionGranted = true;
+    private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
 
     private static final int DEFAULT_ZOOM = 15;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
     private static final String TAG = MapsActivity.class.getSimpleName();
 
     FloatingActionButton fab, fab1, fab2;
@@ -241,7 +242,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
@@ -370,4 +370,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             });
     }
+
 }

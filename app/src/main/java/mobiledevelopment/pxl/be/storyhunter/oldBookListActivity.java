@@ -38,7 +38,6 @@ public class oldBookListActivity extends AppCompatActivity {
 
         //Get the retrofit instance of the book class
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
-
         db = new DbHelper(this);
 
 
