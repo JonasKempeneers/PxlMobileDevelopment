@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goToMenu(View view) {
-        Intent intent = new Intent(MainActivity.this, BookListActivity.class);
+        Intent intent = new Intent(MainActivity.this, oldBookListActivity.class);
         startActivity(intent);
     }
 

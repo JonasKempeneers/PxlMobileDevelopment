@@ -11,8 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mobiledevelopment.pxl.be.storyhunter.BookDetailActivity;
-import mobiledevelopment.pxl.be.storyhunter.BookListActivity;
+import mobiledevelopment.pxl.be.storyhunter.oldBookDetailActivity;
 import mobiledevelopment.pxl.be.storyhunter.R;
 import mobiledevelopment.pxl.be.storyhunter.entities.Book;
 
@@ -66,7 +65,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
         }
 
         public void onClick(View view){
-            Intent openDetailIntent = new Intent(context, BookDetailActivity.class);
+            Intent openDetailIntent = new Intent(context, oldBookDetailActivity.class);
 
             openDetailIntent.putExtra("title" ,title.getText());
             openDetailIntent.putExtra("author" ,author.getText());

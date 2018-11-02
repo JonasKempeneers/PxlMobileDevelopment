@@ -23,9 +23,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,7 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final LatLng mDefaultLocation = new LatLng(50.953753, 5.352708);
 
-    private boolean mLocationPermissionGranted;
+    private boolean mLocationPermissionGranted = true;
     private Location mLastKnownLocation;
 
     private static final int DEFAULT_ZOOM = 15;
@@ -77,6 +74,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -116,12 +114,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (menuItem.getTitle().toString()){
                             case "Placed books":
-                                Intent placedBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
+                                Intent placedBooksIntent = new Intent(MapsActivity.this, oldBookListActivity.class);
                                 placedBooksIntent.putExtra("placedBooks", true);
                                 startActivity(placedBooksIntent);
                                 break;
                             case "Found books":
-                                Intent foundBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
+                                Intent foundBooksIntent = new Intent(MapsActivity.this, oldBookListActivity.class);
                                 foundBooksIntent.putExtra("placedBooks", false);
                                 startActivity(foundBooksIntent);
                                 break;
@@ -129,6 +127,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Intent generateQRIntent = new Intent(MapsActivity.this, QRCodeCreateActivity.class);
                                 startActivity(generateQRIntent);
                                 break;
+                            case "Fragments":
+                                Intent fragmentIntent = new Intent(MapsActivity.this, BookListActivity.class);
+                                startActivity(fragmentIntent);
+                               break;
                                 default: break;
                         }
 
