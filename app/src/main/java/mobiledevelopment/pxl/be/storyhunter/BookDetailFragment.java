@@ -1,7 +1,6 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
-import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import mobiledevelopment.pxl.be.storyhunter.dummy.DummyContent;
+import java.util.List;
+
+import mobiledevelopment.pxl.be.storyhunter.entities.Book;
+import mobiledevelopment.pxl.be.storyhunter.helpers.DbHelper;
+
 
 /**
  * A fragment representing a single Book detail screen.
@@ -22,12 +25,12 @@ public class BookDetailFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String BOOK_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
+    private List<Book> mBooks;
+    private Book mBook;
+
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,13 +43,17 @@ public class BookDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        DbHelper db = new DbHelper(this.getContext());
+        mBooks = db.getBookList(Book.PLACEDBOOKS_TABLE_NAME);
 
 
+        if (getArguments().containsKey(BOOK_ID)) {
+            Bundle bundle = getArguments();
+            for (Book book : mBooks) {
+                if (Integer.toString(book.getId()).equals(bundle.get(BOOK_ID))) {
+                    mBook = book;
+                }
+            }
         }
     }
 
@@ -55,9 +62,9 @@ public class BookDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.book_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.details);
+        // Show the content as text in a TextView.
+        if (mBook != null) {
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mBook.getTitle());
         }
 
         return rootView;

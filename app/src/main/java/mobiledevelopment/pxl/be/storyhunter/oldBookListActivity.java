@@ -25,8 +25,8 @@ public class oldBookListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private BookListAdapter mAdapter;
     private BooksApi service;
-    private Toolbar toolbar;
     private DbHelper db;
+    private Toolbar toolbar;
 
 
     @Override

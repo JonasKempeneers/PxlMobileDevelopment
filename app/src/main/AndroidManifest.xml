@@ -53,7 +53,7 @@
         <activity
             android:name=".BookListActivity"
             android:label="@string/title_book_list"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".BookDetailActivity"
             android:label="@string/title_book_detail"

@@ -36,9 +36,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         onCreate(db);
-
     }
 
     public long addBookToTable(String tableName, Book book){
