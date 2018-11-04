@@ -29,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -51,6 +52,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DrawerLayout mDrawerLayout;
 
     private final LatLng mDefaultLocation = new LatLng(50.953753, 5.352708);
+    private final LatLng mDefaultLocation2 = new LatLng(50.9569, 5.32413);
+
 
     private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
@@ -328,6 +331,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void placeMarkersOnMap(ArrayList<Book> bookList){
+        LatLngBounds curScreen = mMap.getProjection()
+                .getVisibleRegion().latLngBounds;
 
         if (bookList == null){
             Log.e("Error", "No data in bookList");
@@ -336,10 +341,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         for (Book book: bookList) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(book.getLatitude(), book.getLongitude()))
-                    .title(book.getTitle() + " - " + book.getAuthor()));
-            Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle() );
+            if (curScreen.contains(new LatLng(book.getLatitude(), book.getLongitude()))){
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(book.getLatitude(), book.getLongitude()))
+                        .title(book.getTitle() + " - " + book.getAuthor()));
+                Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle() );
+            }
         }
     }
 
