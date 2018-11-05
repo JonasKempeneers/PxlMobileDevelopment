@@ -378,4 +378,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             });
     }
 
+    public void goToMyLocation(View view) {
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            Location location = task.getResult();
+                            LatLng currentLatLng = new LatLng(location.getLatitude(),
+                                    location.getLongitude());
+                            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLatLng,
+                                    DEFAULT_ZOOM);
+                            mMap.moveCamera(update);
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
 }
