@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,11 +38,14 @@ public class BookListActivity extends AppCompatActivity {
     private BooksApi service;
     private DbHelper db;
     private RecyclerView mRecyclerView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //Get the retrofit instance of the book class
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);

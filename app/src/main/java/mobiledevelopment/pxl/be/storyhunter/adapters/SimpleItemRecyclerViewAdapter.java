@@ -62,7 +62,7 @@ import mobiledevelopment.pxl.be.storyhunter.entities.Book;
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
+           // holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
             holder.mContentView.setText(mValues.get(position).getTitle());
 
             holder.itemView.setTag(mValues.get(position));
@@ -75,12 +75,12 @@ import mobiledevelopment.pxl.be.storyhunter.entities.Book;
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
+           // final TextView mIdView;
             final TextView mContentView;
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
+               // mIdView = (TextView) view.findViewById(R.id.id_text);
                 mContentView = (TextView) view.findViewById(R.id.content);
             }
         }

@@ -22,13 +22,12 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MapsActivity"
-            android:screenOrientation="portrait" />
+            android:name=".MapsActivity"/>
+            <!--android:screenOrientation="portrait" />-->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -49,11 +48,9 @@
         <activity android:name=".QRCodeCreateActivity" />
         <activity
             android:name=".BookListActivity"
-            android:label="@string/title_book_list"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".BookDetailActivity"
-            android:label="@string/title_book_detail"
             android:parentActivityName=".BookListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
