@@ -76,7 +76,7 @@
                 android:layout_marginLeft="10dp"
                 app:srcCompat="@drawable/ic_book"
                 app:fabSize="mini"
-                android:onClick="navigateToQRScanner"
+                android:onClick="navigateToFoundBookQRScanner"
                 app:backgroundTint="@color/colorPrimary"/>
         </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_marginLeft="10dp"
                 app:srcCompat="@drawable/ic_add_white"
                 app:fabSize="mini"
-                android:onClick="navigateToQRGenerator"
+                android:onClick="navigateToPlaceBookQRScanner"
                 app:backgroundTint="@color/colorPrimary"/>
         </LinearLayout>
 

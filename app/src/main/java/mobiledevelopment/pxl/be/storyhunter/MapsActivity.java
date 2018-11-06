@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -44,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 //    FragmentActivity
 
     private GoogleMap mMap;
@@ -65,7 +66,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     FloatingActionButton fab, fab1, fab2;
     LinearLayout fabLayout1, fabLayout2;
     View fabBGLayout;
-    boolean isFABOpen=false;
+    boolean isFABOpen = false;
 
     private BooksApi service;
     private ArrayList<Book> bookList;
@@ -92,12 +93,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         //Fabbutton
-        fabLayout1= (LinearLayout) findViewById(R.id.fabLayout1);
-        fabLayout2= (LinearLayout) findViewById(R.id.fabLayout2);
+        fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
+        fabLayout2 = (LinearLayout) findViewById(R.id.fabLayout2);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2= (FloatingActionButton) findViewById(R.id.fab2);
-        fabBGLayout=findViewById(R.id.fabBGLayout);
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fabBGLayout = findViewById(R.id.fabBGLayout);
 
         //Instantiate API
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
@@ -116,7 +117,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
 
-                        switch (menuItem.getTitle().toString()){
+                        switch (menuItem.getTitle().toString()) {
                             case "Placed books":
                                 Intent placedBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
                                 placedBooksIntent.putExtra("placedBooks", true);
@@ -141,9 +142,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isFABOpen){
+                if (!isFABOpen) {
                     showFABMenu();
-                }else{
+                } else {
                     closeFABMenu();
                 }
             }
@@ -181,7 +182,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -213,7 +214,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
             }
-        } catch(SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -233,6 +234,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
         updateLocationUI();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(location.getLatitude(),
+                        location.getLongitude()), DEFAULT_ZOOM));
+        getBooksInLocationRadius();
     }
 
     public void onMapReady(GoogleMap map) {
@@ -266,8 +275,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void showFABMenu(){
-        isFABOpen=true;
+    private void showFABMenu() {
+        isFABOpen = true;
         fabLayout1.setVisibility(View.VISIBLE);
         fabLayout2.setVisibility(View.VISIBLE);
         fabBGLayout.setVisibility(View.VISIBLE);
@@ -277,8 +286,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
     }
 
-    private void closeFABMenu(){
-        isFABOpen=false;
+    private void closeFABMenu() {
+        isFABOpen = false;
         fabBGLayout.setVisibility(View.GONE);
         fab.animate().rotationBy(-180);
         fabLayout1.animate().translationY(0);
@@ -290,7 +299,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                if(!isFABOpen){
+                if (!isFABOpen) {
                     fabLayout1.setVisibility(View.GONE);
                     fabLayout2.setVisibility(View.GONE);
                 }
@@ -298,80 +307,81 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onAnimationCancel(Animator animator) {}
+            public void onAnimationCancel(Animator animator) {
+            }
 
             @Override
-            public void onAnimationRepeat(Animator animator) {}
+            public void onAnimationRepeat(Animator animator) {
+            }
         });
     }
 
     @Override
     public void onBackPressed() {
-        if(isFABOpen){
+        if (isFABOpen) {
             closeFABMenu();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
 
-    public void navigateToQRGenerator(View view) {
-        Intent placeBookIntent = new Intent(MapsActivity.this, QRCodeCreateActivity.class);
-        placeBookIntent.putExtra("placedBooks", true);
+    public void navigateToFoundBookQRScanner(View view) {
+        Intent placeBookIntent = new Intent(MapsActivity.this, QRCodeCaptureActivity.class);
+        placeBookIntent.putExtra("placeBooks", false);
         startActivity(placeBookIntent);
     }
 
-    public void navigateToQRScanner(View view) {
+    public void navigateToPlaceBookQRScanner(View view) {
         Intent createBookIntent = new Intent(MapsActivity.this, QRCodeCaptureActivity.class);
-        createBookIntent.putExtra("placedBooks", true);
+        createBookIntent.putExtra("placeBooks", true);
         startActivity(createBookIntent);
     }
 
-    private void placeMarkersOnMap(ArrayList<Book> bookList){
+    private void placeMarkersOnMap(ArrayList<Book> bookList) {
         LatLngBounds curScreen = mMap.getProjection()
                 .getVisibleRegion().latLngBounds;
 
-        if (bookList == null){
+        if (bookList == null) {
             Log.e("Error", "No data in bookList");
             Toast.makeText(MapsActivity.this, "Could not retrieve data, please check your internet connection and try again", Toast.LENGTH_LONG);
             return;
         }
 
-        for (Book book: bookList) {
-            if (curScreen.contains(new LatLng(book.getLatitude(), book.getLongitude()))){
+        mMap.clear();
+
+        for (Book book : bookList) {
+            if (curScreen.contains(new LatLng(book.getLatitude(), book.getLongitude()))) {
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(book.getLatitude(), book.getLongitude()))
                         .title(book.getTitle() + " - " + book.getAuthor()));
-                Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle() );
+                Log.i("Info", "Added marker on position " + book.getLatitude() + "," + book.getLongitude() + " with title " + book.getTitle());
             }
         }
     }
 
-    private void getBooksInLocationRadius(){
-            Call<List<Book>> call = service.getBooksInLocationRadius();
+    private void getBooksInLocationRadius() {
+        Call<List<Book>> call = service.getBooksInLocationRadius();
 
-            /*Log the URL called*/
-            Log.wtf("URL Called", call.request().url() + "");
+        /*Log the URL called*/
+        Log.wtf("URL Called", call.request().url() + "");
 
-            call.enqueue(new Callback<List<Book>>() {
-                @Override
-                public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                    placeMarkersOnMap((ArrayList<Book>)response.body());
+        call.enqueue(new Callback<List<Book>>() {
+            @Override
+            public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                placeMarkersOnMap((ArrayList<Book>) response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Book>> call, Throwable t) {
+                if (t.getMessage().equals("timeout")) {
+                    Toast.makeText(MapsActivity.this, "Connection timed out...Please try later!", Toast.LENGTH_SHORT).show();
+                    Log.e("Error", "Error" + t.getMessage());
+                } else {
+                    Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    Log.e("Error", t.getMessage());
                 }
-
-                @Override
-                public void onFailure(Call<List<Book>> call, Throwable t) {
-                    if(t.getMessage().equals("timeout")){
-                        Toast.makeText(MapsActivity.this, "Connection timed out...Please try later!", Toast.LENGTH_SHORT).show();
-                        Log.e("Error", "Error" + t.getMessage());
-                    }
-                    else {
-                        Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                        Log.e("Error", t.getMessage());
-                    }
-
-
-                }
-            });
+            }
+        });
     }
 
     public void goToMyLocation(View view) {
