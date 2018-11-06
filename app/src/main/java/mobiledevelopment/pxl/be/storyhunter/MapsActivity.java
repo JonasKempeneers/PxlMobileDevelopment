@@ -393,6 +393,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLatLng,
                                     DEFAULT_ZOOM);
                             mMap.moveCamera(update);
+                            getBooksInLocationRadius();
                         }
                     }
                 });

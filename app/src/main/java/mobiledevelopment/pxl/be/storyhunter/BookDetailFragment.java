@@ -1,6 +1,6 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -64,7 +64,7 @@ public class BookDetailFragment extends Fragment {
 
         // Show the content as text in a TextView.
         if (mBook != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mBook.getTitle());
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mBook.getTitle()+"\n"+mBook.getAuthor()+"\n"+mBook.getIsbn());
         }
 
         return rootView;
