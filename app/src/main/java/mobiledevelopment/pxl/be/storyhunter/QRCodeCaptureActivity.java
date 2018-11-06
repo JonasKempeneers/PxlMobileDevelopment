@@ -9,11 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import mobiledevelopment.pxl.be.storyhunter.api.BooksApi;
@@ -70,9 +66,6 @@ public class QRCodeCaptureActivity extends AppCompatActivity implements ZXingSca
 
     @Override
     public void handleResult(Result result) {
-        //TODO: Get data from qr
-        //TODO: Post to database (foundbooks)
-        //TODO: Return to mapactivity, camera will freeze on read
         String separator = ":";
         String[] bookData = result.getText().split(separator);
 
@@ -82,10 +75,17 @@ public class QRCodeCaptureActivity extends AppCompatActivity implements ZXingSca
     }
 
     private void postBook(Book book){
+        Intent previousIntent = getIntent();
+        Call<Book> call;
         BooksApi service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
         /*Call the method with parameter in the interface to get the book data*/
-        Call<Book> call = service.postBook(book);
+        if(previousIntent.getBooleanExtra("placeBooks", true)){
+            call = service.postPlacedBook(book);
+        }
+        else {
+            call = service.postFoundBook(book);
+        }
 
         /*Log the URL called*/
         Log.wtf("URL Called", call.request().url() + "");

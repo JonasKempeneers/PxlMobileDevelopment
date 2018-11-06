@@ -20,5 +20,8 @@ public interface BooksApi {
     public Call<List<Book>> getBooksInLocationRadius();
 
     @POST("foundBooks")
-    public Call<Book> postBook(@Body Book book);
+    public Call<Book> postFoundBook(@Body Book book);
+
+    @POST("placeBooks")
+    public Call<Book> postPlacedBook(@Body Book book);
 }
