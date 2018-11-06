@@ -211,7 +211,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation2, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
@@ -340,6 +340,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
+        mMap.clear();
+
         for (Book book: bookList) {
             if (curScreen.contains(new LatLng(book.getLatitude(), book.getLongitude()))){
                 mMap.addMarker(new MarkerOptions()
@@ -372,8 +374,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Toast.makeText(MapsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                         Log.e("Error", t.getMessage());
                     }
-
-
                 }
             });
     }
@@ -393,6 +393,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentLatLng,
                                     DEFAULT_ZOOM);
                             mMap.moveCamera(update);
+                            getBooksInLocationRadius();
                         }
                     }
                 });
