@@ -118,12 +118,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         switch (menuItem.getTitle().toString()){
                             case "Placed books":
-                                Intent placedBooksIntent = new Intent(MapsActivity.this, oldBookListActivity.class);
+                                Intent placedBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
                                 placedBooksIntent.putExtra("placedBooks", true);
                                 startActivity(placedBooksIntent);
                                 break;
                             case "Found books":
-                                Intent foundBooksIntent = new Intent(MapsActivity.this, oldBookListActivity.class);
+                                Intent foundBooksIntent = new Intent(MapsActivity.this, BookListActivity.class);
                                 foundBooksIntent.putExtra("placedBooks", false);
                                 startActivity(foundBooksIntent);
                                 break;
@@ -131,10 +131,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Intent generateQRIntent = new Intent(MapsActivity.this, QRCodeCreateActivity.class);
                                 startActivity(generateQRIntent);
                                 break;
-                            case "Fragments":
-                                Intent fragmentIntent = new Intent(MapsActivity.this, BookListActivity.class);
-                                startActivity(fragmentIntent);
-                               break;
                                 default: break;
                         }
 

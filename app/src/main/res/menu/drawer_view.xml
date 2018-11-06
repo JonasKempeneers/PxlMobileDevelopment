@@ -13,9 +13,6 @@
         android:id="@+id/nav_generateQR"
         android:title="Generate QR" />
 
-        <item
-            android:id="@+id/nav_fragment"
-            android:title="Fragments" />
 
 
     </group>

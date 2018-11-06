@@ -26,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
         <activity
             android:name=".MapsActivity"
             android:screenOrientation="portrait" />
@@ -46,8 +45,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".oldBookListActivity" />
-        <activity android:name=".oldBookDetailActivity" />
         <activity android:name=".QRCodeCaptureActivity" />
         <activity android:name=".QRCodeCreateActivity" />
         <activity
