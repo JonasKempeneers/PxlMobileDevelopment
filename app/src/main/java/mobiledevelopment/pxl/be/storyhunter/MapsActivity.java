@@ -45,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 //    FragmentActivity
 
     private GoogleMap mMap;
@@ -54,7 +54,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final LatLng mDefaultLocation = new LatLng(50.953753, 5.352708);
     private final LatLng mDefaultLocation2 = new LatLng(50.9569, 5.32413);
-
 
     private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
@@ -75,6 +74,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -103,6 +103,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Instantiate API
         service = RetroFitInstance.getRetrofitInstance().create(BooksApi.class);
 
+        //Navigation Menu
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -236,23 +237,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         updateLocationUI();
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(location.getLatitude(),
-                        location.getLongitude()), DEFAULT_ZOOM));
-        getBooksInLocationRadius();
-    }
-
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        // Do other setup activities here too, as described elsewhere in this tutorial.
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-
+        // Gets books and places markers on the map for each book
         getBooksInLocationRadius();
     }
 
@@ -293,9 +285,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fabFoundBookLayout.animate().translationY(0);
         fabPlaceBookLayout.animate().translationY(0).setListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
+            public void onAnimationStart(Animator animator) { }
 
             @Override
             public void onAnimationEnd(Animator animator) {
@@ -303,7 +293,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     fabFoundBookLayout.setVisibility(View.GONE);
                     fabPlaceBookLayout.setVisibility(View.GONE);
                 }
-
             }
 
             @Override
