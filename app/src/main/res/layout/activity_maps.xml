@@ -51,7 +51,7 @@
             android:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/fabLayout1"
+            android:id="@+id/fabFoundBookLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/standard_23"
@@ -70,7 +70,7 @@
                 android:textColor="@android:color/white"/>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab1"
+                android:id="@+id/fabFoundBook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -81,7 +81,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fabLayout2"
+            android:id="@+id/fabPlaceBookLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/standard_12"
@@ -100,7 +100,7 @@
                 android:textColor="@android:color/white"/>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab2"
+                android:id="@+id/fabPlaceBook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -122,7 +122,7 @@
 
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
+                android:id="@+id/fabMaster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"

@@ -63,8 +63,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 100;
     private static final String TAG = MapsActivity.class.getSimpleName();
 
-    FloatingActionButton fab, fab1, fab2;
-    LinearLayout fabLayout1, fabLayout2;
+    FloatingActionButton fabMaster, fabFoundBook, fabPlaceBook;
+    LinearLayout fabFoundBookLayout, fabPlaceBookLayout;
     View fabBGLayout;
     boolean isFABOpen = false;
 
@@ -93,11 +93,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         //Fabbutton
-        fabLayout1 = (LinearLayout) findViewById(R.id.fabLayout1);
-        fabLayout2 = (LinearLayout) findViewById(R.id.fabLayout2);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fabFoundBookLayout = (LinearLayout) findViewById(R.id.fabFoundBook);
+        fabPlaceBookLayout = (LinearLayout) findViewById(R.id.fabPlaceBook);
+        fabMaster = (FloatingActionButton) findViewById(R.id.fabMaster);
+        fabFoundBook = (FloatingActionButton) findViewById(R.id.fabFoundBook);
+        fabPlaceBook = (FloatingActionButton) findViewById(R.id.fabPlaceBook);
         fabBGLayout = findViewById(R.id.fabBGLayout);
 
         //Instantiate API
@@ -139,7 +139,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabMaster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isFABOpen) {
@@ -277,21 +277,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void showFABMenu() {
         isFABOpen = true;
-        fabLayout1.setVisibility(View.VISIBLE);
-        fabLayout2.setVisibility(View.VISIBLE);
+        fabFoundBookLayout.setVisibility(View.VISIBLE);
+        fabPlaceBookLayout.setVisibility(View.VISIBLE);
         fabBGLayout.setVisibility(View.VISIBLE);
 
-        fab.animate().rotationBy(180);
-        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
-        fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
+        fabMaster.animate().rotationBy(180);
+        fabFoundBookLayout.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fabPlaceBookLayout.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
     }
 
     private void closeFABMenu() {
         isFABOpen = false;
         fabBGLayout.setVisibility(View.GONE);
-        fab.animate().rotationBy(-180);
-        fabLayout1.animate().translationY(0);
-        fabLayout2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+        fabMaster.animate().rotationBy(-180);
+        fabFoundBookLayout.animate().translationY(0);
+        fabPlaceBookLayout.animate().translationY(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -300,8 +300,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onAnimationEnd(Animator animator) {
                 if (!isFABOpen) {
-                    fabLayout1.setVisibility(View.GONE);
-                    fabLayout2.setVisibility(View.GONE);
+                    fabFoundBookLayout.setVisibility(View.GONE);
+                    fabPlaceBookLayout.setVisibility(View.GONE);
                 }
 
             }
