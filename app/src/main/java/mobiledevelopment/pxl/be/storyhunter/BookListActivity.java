@@ -35,6 +35,7 @@ public class BookListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+    private boolean mIsPlacedBook;
     private BooksApi service;
     private DbHelper db;
     private RecyclerView mRecyclerView;
@@ -61,8 +62,10 @@ public class BookListActivity extends AppCompatActivity {
 
         Intent previousIntent = getIntent();
         if(previousIntent.getBooleanExtra("placedBooks", true)){
+            mIsPlacedBook  = true;
             getPlacedBooks();
         } else {
+            mIsPlacedBook = false;
             getFoundBooks();
         }
     }
@@ -141,8 +144,7 @@ public class BookListActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.book_list);
         assert mRecyclerView != null;
-        mRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, bookArrayList, mTwoPane));
-
+        mRecyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, bookArrayList, mTwoPane, mIsPlacedBook));
     }
 
 

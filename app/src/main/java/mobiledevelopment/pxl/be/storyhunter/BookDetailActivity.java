@@ -31,6 +31,7 @@ public class BookDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(BookDetailFragment.BOOK_ID,
                     getIntent().getStringExtra(BookDetailFragment.BOOK_ID));
+            arguments.putBoolean("isPlacedBook", getIntent().getBooleanExtra("isPlacedBook", true));
             BookDetailFragment fragment = new BookDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

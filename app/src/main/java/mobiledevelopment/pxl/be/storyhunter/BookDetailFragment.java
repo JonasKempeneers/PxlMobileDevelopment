@@ -1,6 +1,7 @@
 package mobiledevelopment.pxl.be.storyhunter;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -44,7 +45,14 @@ public class BookDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         DbHelper db = new DbHelper(this.getContext());
-        mBooks = db.getBookList(Book.PLACEDBOOKS_TABLE_NAME);
+
+        boolean isPlacedBook = getArguments().getBoolean("isPlacedBook");
+        if(isPlacedBook){
+            mBooks = db.getBookList(Book.PLACEDBOOKS_TABLE_NAME);
+        } else {
+            mBooks = db.getBookList(Book.FOUNDBOOKS_TABLE_NAME);
+        }
+
 
 
         if (getArguments().containsKey(BOOK_ID)) {

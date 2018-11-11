@@ -93,8 +93,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         //Fabbutton
-        fabFoundBookLayout = (LinearLayout) findViewById(R.id.fabFoundBook);
-        fabPlaceBookLayout = (LinearLayout) findViewById(R.id.fabPlaceBook);
+        fabFoundBookLayout = (LinearLayout) findViewById(R.id.fabFoundBookLayout);
+        fabPlaceBookLayout = (LinearLayout) findViewById(R.id.fabPlaceBookLayout);
         fabMaster = (FloatingActionButton) findViewById(R.id.fabMaster);
         fabFoundBook = (FloatingActionButton) findViewById(R.id.fabFoundBook);
         fabPlaceBook = (FloatingActionButton) findViewById(R.id.fabPlaceBook);

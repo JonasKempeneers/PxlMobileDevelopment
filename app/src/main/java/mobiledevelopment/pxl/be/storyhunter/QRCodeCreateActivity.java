@@ -82,7 +82,7 @@ public class QRCodeCreateActivity extends AppCompatActivity {
     }
 
     public void shareQRCode(View view) {
-        Bitmap bitmap =getBitmapFromView(qrImageView);
+        Bitmap bitmap = getBitmapFromView(qrImageView);
         try {
             File file = new File(this.getExternalCacheDir(),"logicchip.png");
             FileOutputStream fOut = new FileOutputStream(file);
