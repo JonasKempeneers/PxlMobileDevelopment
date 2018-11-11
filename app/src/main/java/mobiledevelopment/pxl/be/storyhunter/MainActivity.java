@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-
-
     public void goToMenu(View view) {
         Intent intent = new Intent(MainActivity.this, BookListActivity.class);
         startActivity(intent);

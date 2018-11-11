@@ -31,8 +31,6 @@ public class BookDetailFragment extends Fragment {
     private List<Book> mBooks;
     private Book mBook;
 
-
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -53,7 +51,6 @@ public class BookDetailFragment extends Fragment {
         } else {
             mBooks = db.getBookList(Book.FOUNDBOOKS_TABLE_NAME);
         }
-
 
 
         if (getArguments().containsKey(BOOK_ID)) {
