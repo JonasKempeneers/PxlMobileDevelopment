@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +28,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Method;
 
 public class QRCodeCreateActivity extends AppCompatActivity {
 
@@ -83,6 +86,14 @@ public class QRCodeCreateActivity extends AppCompatActivity {
 
     public void shareQRCode(View view) {
         Bitmap bitmap = getBitmapFromView(qrImageView);
+        if(Build.VERSION.SDK_INT>=24){
+            try{
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
         try {
             File file = new File(this.getExternalCacheDir(),"logicchip.png");
             FileOutputStream fOut = new FileOutputStream(file);
@@ -91,6 +102,7 @@ public class QRCodeCreateActivity extends AppCompatActivity {
             fOut.close();
             file.setReadable(true, false);
             final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
             intent.setType("image/png");
@@ -105,10 +117,8 @@ public class QRCodeCreateActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(returnedBitmap);
         Drawable bgDrawable =view.getBackground();
         if (bgDrawable!=null) {
-            //has background drawable, then draw it on the canvas
             bgDrawable.draw(canvas);
         }   else{
-            //does not have background drawable, then draw white background on the canvas
             canvas.drawColor(Color.WHITE);
         }
         view.draw(canvas);

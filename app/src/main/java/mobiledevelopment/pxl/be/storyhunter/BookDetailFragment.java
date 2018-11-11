@@ -46,6 +46,7 @@ public class BookDetailFragment extends Fragment {
 
         DbHelper db = new DbHelper(this.getContext());
 
+
         boolean isPlacedBook = getArguments().getBoolean("isPlacedBook");
         if(isPlacedBook){
             mBooks = db.getBookList(Book.PLACEDBOOKS_TABLE_NAME);
